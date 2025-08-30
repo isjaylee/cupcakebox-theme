@@ -1,0 +1,20 @@
+<!-- Top Ticker -->
+<div class="promo py-2 text-center small">
+    <div class="container">
+        <i class="bi bi-ticket-perforated"></i> {{ section.settings.title }}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Top Promo",
+  "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title",
+      "default": "Use code <strong>SWEET10</strong> for 10% off — today only!"
+    }
+  ]
+}
+{% endschema %}
