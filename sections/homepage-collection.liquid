@@ -8,7 +8,7 @@
             </a>
         </div>
         <div class="row g-4">
-            {% assign filter_handles = section.settings.collections_filter_value | split: ',' %}
+            {% assign filter_handles = section.settings.collection_handles | split: ',' %}
             {% for collection in collections %}
                 {% if filter_handles contains collection.handle %}
                     <div class="col-12 col-md-6 col-xl-3">
@@ -54,10 +54,10 @@
       "info": "Set the URL for the 'See all' button to link to a collection page or custom URL."
     },
     {
-      "id": "collections_filter_value",
+      "id": "collection_handles",
       "type": "text",
-      "label": "Filter Value",
-      "info": "Enter the value to filter collections by (title, tag, or handle). This will limit the collections displayed based on this value."
+      "label": "Collection handles (comma-separated)",
+      "info": "Example: bestsellers,fruity-fresh,chocolatey,special-diet"
     }
   ]
 }
