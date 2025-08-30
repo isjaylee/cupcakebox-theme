@@ -1,82 +1,49 @@
 <!-- HERO -->
 <header class="hero pt-5 pb-0">
     <div class="container pt-4 pb-5">
-        <div class="row align-items-center g-5">
+        <div class="row align-items-center g-2">
             <div class="col-lg-6">
-                <span class="badge badge-candy rounded-pill"
-                    >New summer collection</span
-                >
+                <span class="badge badge-candy rounded-pill">{{ section.settings.tiny_text }}</span>
                 <h1 class="display-4 brand fw-black mt-3">
-                    Bite‑size joy in
-                    <span
-                        style="
-                            background: linear-gradient(
-                                90deg,
-                                var(--bubble),
-                                var(--mint)
-                            );
-                            -webkit-background-clip: text;
-                            background-clip: text;
-                            color: transparent;
-                        "
-                        >every swirl</span
-                    >.
+                    {{ section.settings.primary_text }}
                 </h1>
                 <p class="lead">
-                    Bright, buttery, and baked this morning. Build a box
-                    or grab a dozen of our colorful bestsellers.
+                    {{ section.settings.secondary_text }}
                 </p>
                 <div class="d-flex flex-wrap gap-3 mt-3">
                     <a
                         class="btn btn-dark btn-lg"
-                        href="all-products.html"
-                        ><i class="bi bi-bag-heart me-1"></i> Shop
-                        Cupcakes</a
+                        href="{{ section.settings.primary_button_link }}"
                     >
+                        <i class="bi bi-bag-heart me-1"></i> {{ section.settings.primary_button_label }}
+                    </a>
                     <a
                         class="btn btn-outline-dark btn-lg"
-                        href="collections.html"
-                        ><i class="bi bi-grid-1x2 me-1"></i> Explore
-                        Collections</a
+                        href="{{ section.settings.secondary_button_link }}"
                     >
+                        <i class="bi bi-grid-1x2 me-1"></i> {{ section.settings.secondary_button_label }}
+                    </a>
                 </div>
                 <div class="d-flex align-items-center gap-3 mt-4">
                     <div class="text-warning">
-                        <i class="bi bi-star-fill"></i
-                        ><i class="bi bi-star-fill"></i
-                        ><i class="bi bi-star-fill"></i
-                        ><i class="bi bi-star-fill"></i
-                        ><i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
                     </div>
-                    <small class="text-secondary"
-                        >2,300+ five‑star reviews</small
-                    >
+                    <small class="text-secondary">
+                        2,300+ five‑star reviews
+                    </small>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="card hero-card rounded-4 p-3 p-md-4">
                     <img
                         class="img-fluid rounded-4"
-                        src="https://placehold.co/950x600/fbcfe8/0b1220?text=Colorful+Cupcake+Stack"
+                        src="{{ section.settings.hero_image | img_url: 'large' }}"
                         alt="Cupcake stack"
                     />
-                    <div class="row text-center mt-3 g-2">
-                        <div class="col">
-                            <span class="badge text-bg-warning"
-                                >Gluten‑free</span
-                            >
-                        </div>
-                        <div class="col">
-                            <span class="badge text-bg-success"
-                                >Vegan</span
-                            >
-                        </div>
-                        <div class="col">
-                            <span class="badge text-bg-info"
-                                >Nut‑free</span
-                            >
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -92,3 +59,57 @@
         />
     </svg>
 </header>
+
+{% schema %}
+{
+  "name": "Homepage Hero",
+  "settings": [
+    {
+      "id": "tiny_text",
+      "type": "text",
+      "label": "Tiny Text",
+      "default": "New summer collection",
+    },
+    {
+      "id": "primary_text",
+      "type": "text",
+      "label": "Primary Text",
+      "default": "Bite‑size joy in <span class=\"hero-gradient-text\">every swirl</span>.",
+      "info": "Wrap text you want decorated inside of <span class=\"hero-gradient-text\">enjoy swirl</span>"
+    },
+    {
+      "id": "secondary_text",
+      "type": "text",
+      "label": "Secondary Text",
+      "default": "Bright, buttery, and baked this morning. Build a box or grab a dozen of our colorful bestsellers."
+    },
+    {
+      "id": "primary_button_label",
+      "type": "text",
+      "label": "Primary Button Label",
+      "default": "Shop Cupcakes"
+    },
+    {
+      "id": "primary_button_link",
+      "type": "url",
+      "label": "Primary Button Link"
+    },
+    {
+      "id": "secondary_button_label",
+      "type": "text",
+      "label": "Secondary Button Label",
+      "default": "Explore Collections"
+    },
+    {
+      "id": "secondary_button_link",
+      "type": "url",
+      "label": "Secondary Button Link"
+    },
+    {
+      "id": "hero_image",
+      "type": "image_picker",
+      "label": "Hero Image"
+    }
+  ]
+}
+{% endschema %}
