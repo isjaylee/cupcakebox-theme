@@ -1,96 +1,64 @@
 <!-- COLLECTIONS -->
 <section id="collections" class="py-5">
     <div class="container">
-        <div
-            class="d-flex justify-content-between align-items-end mb-3"
-        >
-            <h2 class="brand fw-black m-0">Shop by collection</h2>
-            <a class="link-dark" href="#shop"
-                >See all <i class="bi bi-arrow-right-short"></i
-            ></a>
+        <div class="d-flex justify-content-between align-items-end mb-3">
+            <h2 class="brand fw-black m-0">{{ section.settings.section_title }}</h2>
+            <a class="link-dark" href="{{ section.settings.see_all_link }}">
+                {{ section.settings.see_all_text }} <i class="bi bi-arrow-right-short"></i>
+            </a>
         </div>
         <div class="row g-4">
-            <div class="col-12 col-md-6 col-xl-3">
-                <div class="collection-card position-relative">
-                    <span class="ribbon"
-                        ><i class="bi bi-stars"></i> Bestsellers</span
-                    >
-                    <img
-                        class="w-100"
-                        src="https://placehold.co/800x520/ffe999/0b1220?text=Bestsellers"
-                        alt="Bestsellers"
-                    />
-                    <div class="p-3">
-                        <h5 class="mb-1">Bestsellers</h5>
-                        <p class="small text-secondary mb-2">
-                            Crowd‑pleasers for every party.
-                        </p>
-                        <a class="btn btn-sm btn-dark" href="#shop"
-                            >Shop now</a
-                        >
+            {% assign filter_handles = section.settings.collections_filter_value | split: ',' %}
+            {% for collection in collections %}
+                {% if filter_handles contains collection.handle %}
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="collection-card position-relative">
+                            <img class="w-100" src="{{ collection.image.src | img_url: '800x520' }}" alt="{{ collection.title }}" />
+                            <div class="p-3">
+                                <h5 class="mb-1">{{ collection.title }}</h5>
+                                <p class="small text-secondary mb-2">{{ collection.description | truncate: 100 }}</p>
+                                <a class="btn btn-sm btn-outline-dark" href="{{ collection.url }}">Shop now</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-xl-3">
-                <div class="collection-card">
-                    <img
-                        class="w-100"
-                        src="https://placehold.co/800x520/b8f3ea/0b1220?text=Fruity+Fresh"
-                        alt="Fruity"
-                    />
-                    <div class="p-3">
-                        <h5 class="mb-1">Fruity Fresh</h5>
-                        <p class="small text-secondary mb-2">
-                            Bright citrus, berry bursts, tropical notes.
-                        </p>
-                        <a
-                            class="btn btn-sm btn-outline-dark"
-                            href="#shop"
-                            >Explore</a
-                        >
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-xl-3">
-                <div class="collection-card">
-                    <img
-                        class="w-100"
-                        src="https://placehold.co/800x520/e1d9ff/0b1220?text=Chocolatey"
-                        alt="Chocolate"
-                    />
-                    <div class="p-3">
-                        <h5 class="mb-1">Chocolatey</h5>
-                        <p class="small text-secondary mb-2">
-                            Mocha, fudge, and cocoa‑rich swirls.
-                        </p>
-                        <a
-                            class="btn btn-sm btn-outline-dark"
-                            href="#shop"
-                            >Explore</a
-                        >
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-xl-3">
-                <div class="collection-card">
-                    <img
-                        class="w-100"
-                        src="https://placehold.co/800x520/c7e1ff/0b1220?text=Special+Diet"
-                        alt="Special Diet"
-                    />
-                    <div class="p-3">
-                        <h5 class="mb-1">Special Diet</h5>
-                        <p class="small text-secondary mb-2">
-                            Vegan & gluten‑free treats that wow.
-                        </p>
-                        <a
-                            class="btn btn-sm btn-outline-dark"
-                            href="#shop"
-                            >Explore</a
-                        >
-                    </div>
-                </div>
-            </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </section>
+
+
+{% schema %}
+{
+  "name": "Homepage Collection",
+  "settings": [
+    {
+      "id": "section_title",
+      "type": "text",
+      "label": "Section Title",
+      "default": "Shop by Collection",
+      "info": "This will be the title of the collection section on the homepage."
+    },
+    {
+      "id": "see_all_text",
+      "type": "text",
+      "label": "See All Button Text",
+      "default": "See all",
+      "info": "Customize the text for the 'See all' button."
+    },
+    {
+      "id": "see_all_link",
+      "type": "url",
+      "label": "See All Button URL",
+      "default": "/collections",
+      "info": "Set the URL for the 'See all' button to link to a collection page or custom URL."
+    },
+    {
+      "id": "collections_filter_value",
+      "type": "text",
+      "label": "Filter Value",
+      "info": "Enter the value to filter collections by (title, tag, or handle). This will limit the collections displayed based on this value."
+    }
+  ]
+}
+{% endschema %}
