@@ -1,0 +1,7 @@
+.badge-new {
+    background: linear-gradient(90deg, var(--lemon), var(--mint));
+    color: #0b2a2d;
+}
+.badge-top {
+    background: linear-gradient(90deg, var(--grape), var(--bubble));
+}
