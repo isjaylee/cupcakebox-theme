@@ -27,85 +27,82 @@
 <main class="pb-5">
   <div class="container">
     <div class="row g-4">
-      <!-- Left: items -->
-      <div class="col-lg-8">
-        <div class="cart-card p-3 p-md-4">
-          {% if cart.item_count == 0 %}
-            <div id="emptyState" class="text-center py-5">
-              <div class="display-6">🧁</div>
-              <h5 class="brand fw-black">Your cart is empty</h5>
-              <p class="text-secondary">Let’s fix that. Explore favorites and limited drops.</p>
-              <a class="btn btn-dark" href="{{ routes.all_products_collection_url }}">
-                <i class="bi bi-bag-heart me-1"></i> Start shopping
-              </a>
-            </div>
-          {% else %}
-            <div id="itemList" class="vstack gap-3">
-              {% for item in cart.items %}
-                <div class="line-item d-flex gap-3 align-items-start">
-                  <img
-                    src="{{ item.image | image_url: width: 160, height: 110, crop: 'center' }}"
-                    alt="{{ item.product.title | escape }}"
-                    class="thumb"
-                  >
-                  <div class="flex-grow-1">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <div class="fw-semibold">{{ item.product.title }}</div>
-                        <div class="small text-secondary">{{ item.variant.title }}</div>
-                      </div>
-                      <a
-                        class="btn btn-sm btn-outline-danger"
-                        href="{{ item.url_to_remove }}"
-                      >
-                        <i class="bi bi-x"></i>
-                      </a>
-                    </div>
-
-                    <div class="d-flex flex-wrap align-items-center gap-3 mt-2">
-                      <div class="input-group qty" style="width:140px">
-                        <button
-                          class="btn btn-outline-secondary"
-                          type="button"
-                          aria-label="Decrease quantity"
-                          onclick="var i=this.nextElementSibling; i.stepDown(); i.onchange()"
+        <!-- Left: items -->
+        <div class="col-lg-8">
+          <div class="cart-card p-3 p-md-4">
+            {% if cart.item_count == 0 %}
+              <div id="emptyState" class="text-center py-5">
+                <div class="display-6">🧁</div>
+                <h5 class="brand fw-black">Your cart is empty</h5>
+                <p class="text-secondary">Let’s fix that. Explore favorites and limited drops.</p>
+                <a class="btn btn-dark" href="{{ routes.all_products_collection_url }}">
+                  <i class="bi bi-bag-heart me-1"></i> Start shopping
+                </a>
+              </div>
+            {% else %}
+              <div id="itemList" class="vstack gap-3">
+                {% for item in cart.items %}
+                  <div class="line-item d-flex gap-3 align-items-start">
+                    <img
+                      src="{{ item.image | image_url: width: 160, height: 110, crop: 'center' }}"
+                      alt="{{ item.product.title | escape }}"
+                      class="thumb"
+                    >
+                    <div class="flex-grow-1">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                          <div class="fw-semibold">{{ item.product.title }}</div>
+                          <div class="small text-secondary">{{ item.variant.title }}</div>
+                        </div>
+                        <a
+                          class="btn btn-sm btn-outline-danger"
+                          href="{{ item.url_to_remove }}"
                         >
-                          <i class="bi bi-dash"></i>
-                        </button>
-
-                        <input
-                          id="qty-{{ forloop.index }}"
-                          type="number"
-                          class="form-control text-center"
-                          min="0"
-                          step="1"
-                          value="{{ item.quantity }}"
-                          onchange="location.href='/cart/change?line={{ forloop.index }}&quantity='+this.value"
-                        />
-
-                        <button
-                          class="btn btn-outline-secondary"
-                          type="button"
-                          aria-label="Increase quantity"
-                          onclick="var i=this.previousElementSibling; i.stepUp(); i.onchange()"
-                        >
-                          <i class="bi bi-plus"></i>
-                        </button>
+                          <i class="bi bi-x"></i>
+                        </a>
                       </div>
 
+                      <div class="d-flex flex-wrap align-items-center gap-3 mt-2">
+                        <div class="input-group qty" style="width:140px">
+                          <button
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            aria-label="Decrease quantity"
+                            onclick="var i=this.nextElementSibling; i.stepDown(); i.onchange()"
+                          >
+                            <i class="bi bi-dash"></i>
+                          </button>
 
-                      <div class="ms-auto fw-semibold">
-                        {{ item.final_line_price | money }}
+                          <input
+                            id="qty-{{ forloop.index }}"
+                            type="number"
+                            class="form-control text-center"
+                            min="0"
+                            step="1"
+                            value="{{ item.quantity }}"
+                            onchange="location.href='/cart/change?line={{ forloop.index }}&quantity='+this.value"
+                          />
+
+                          <button
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            aria-label="Increase quantity"
+                            onclick="var i=this.previousElementSibling; i.stepUp(); i.onchange()"
+                          >
+                            <i class="bi bi-plus"></i>
+                          </button>
+                        </div>
+                        <div class="ms-auto fw-semibold">
+                          {{ item.final_line_price | money }}
+                        </div>
                       </div>
                     </div>
-
                   </div>
-                </div>
-              {% endfor %}
-            </div>
-          {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
         </div>
-      </div>
 
       <!-- Right: summary -->
       <div class="col-lg-4">

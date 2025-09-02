@@ -56,9 +56,9 @@
                         class="form-check-input"
                         type="checkbox"
                         id="cat_{{ col.handle }}"
-                        {% if col.handle == collection.handle %}checked aria-current="true"{% endif %}
-                        onchange="location.href='{{ col.url }}'"
-                      />
+                        {% if col.handle == collection.handle %}checked{% endif %}
+                        onchange="location.href = this.checked ? '{{ col.url }}' : '{{ routes.all_products_collection_url }}'"
+                      >
                       <label class="form-check-label" for="cat_{{ col.handle }}">{{ col.title }}</label>
                     </div>
                   {% endif %}
