@@ -1,9 +1,9 @@
-<!-- Main — List Collections (minimal) -->
+<!-- Main — List Collections (blocks) -->
 <header class="py-5">
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb mb-2">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ routes.root_url }}">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Collections</li>
       </ol>
     </nav>
@@ -20,21 +20,20 @@
 <main class="pb-5">
   <div class="container">
     <div class="row g-4" id="grid">
-        {% assign filter_handles = section.settings.collection_handles | split: ',' %}
-
-      {% for collection in collections %}
-        {% if filter_handles contains collection.handle %}
-          <div class="col-12 col-sm-6 col-lg-4 col-xl-3 collection">
-            <a class="text-decoration-none" href="{{ collection.url }}">
+      {% for block in section.blocks %}
+        {% assign col = block.settings.collection %}
+        {% if col %}
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3 collection" {{ block.shopify_attributes }}>
+            <a class="text-decoration-none" href="{{ col.url }}">
               <div class="collection-card h-100">
-                {% if collection.image %}
-                  <img class="thumb w-100" src="{{ collection.image | image_url: width: 800 }}" alt="{{ collection.title | escape }}">
+                {% if col.image %}
+                  <img class="thumb w-100" src="{{ col.image | image_url: width: 800 }}" alt="{{ col.title | escape }}">
                 {% else %}
-                  <img class="thumb w-100" src="//placehold.co/720x480?text={{ collection.title | escape }}" alt="{{ collection.title | escape }}">
+                  <img class="thumb w-100" src="//placehold.co/720x480?text={{ col.title | escape }}" alt="{{ col.title | escape }}">
                 {% endif %}
                 <div class="p-3">
-                  <h5 class="mb-1">{{ collection.title }}</h5>
-                  <p class="small text-secondary mb-0">{{ collection.description | strip_html | truncate: 120 }}</p>
+                  <h5 class="mb-1">{{ col.title }}</h5>
+                  <p class="small text-secondary mb-0">{{ col.description | strip_html | truncate: 120 }}</p>
                 </div>
               </div>
             </a>
@@ -60,16 +59,20 @@
       "type": "text",
       "label": "Subtitle",
       "default": "Pick a vibe — we’ll show you the flavors that match."
-    },
-    {
-      "id": "collection_handles",
-      "type": "text",
-      "label": "Collection handles (comma-separated)",
-      "info": "Example: bestsellers,fruity-fresh,chocolatey,special-diet"
     }
   ],
-  "presets": [
-    { "name": "List Collections (CSV handles)" }
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
   ]
 }
 {% endschema %}
