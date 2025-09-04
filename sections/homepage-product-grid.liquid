@@ -34,16 +34,20 @@
                   <strong>{{ product.price | money }}</strong>
                 </div>
 
-                <!-- Your modal-based Add button wiring -->
-                <button
-                  class="btn btn-dark w-100 mt-3 add"
-                  data-name="{{ product.title | escape }}"
-                  data-price="{{ product.price | divided_by: 100.0 }}"
-                  data-description="{{ product.description | strip_html | escape | truncate: 160 }}"
-                  data-img="{{ product.featured_image | img_url: '800x520' }}"
-                >
-                  <i class="bi bi-bag-plus"></i> {{ section.settings.add_button_text }}
-                </button>
+                <form method="post" action="{{ routes.cart_add_url }}">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <input type="hidden" name="quantity" value="1">{% comment %} change/remove if you have a qty input {% endcomment %}
+                  <button
+                    type="submit"
+                    class="btn btn-dark w-100 mt-3 add"
+                    data-name="{{ product.title | escape }}"
+                    data-price="{{ product.price | divided_by: 100.0 }}"
+                    data-description="{{ product.description | strip_html | escape | truncate: 160 }}"
+                    data-img="{{ product.featured_image | img_url: '800x520' }}"
+                  >
+                    <i class="bi bi-bag-plus"></i> {{ section.settings.add_button_text }}
+                  </button>
+                </form>
               </div>
             </div>
           </div>
