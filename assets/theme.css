@@ -167,3 +167,5 @@ body {
     color: #fff;
     box-shadow: 0 10px 30px rgba(126, 87, 194, 0.5);
 }
+
+.footer .shopify-section-group-footer-group { display: contents; }
